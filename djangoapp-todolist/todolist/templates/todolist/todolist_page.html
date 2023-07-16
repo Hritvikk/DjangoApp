@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>todo list</title>
+        <link href="path/to/file/uni-form.css" media="all" rel="stylesheet"/>
+        <link href="path/to/file/default.uni-form.css" media="all" rel="stylesheet"/>
+        <style>
+            table, td, th {
+               border: 1px solid black;
+               width: 300px;
+               text-align: left;
+            }
+            .center {
+                margin-left: auto;
+                margin-right: auto;
+                }
+         </style>
+
+        <div class="container">
+            <a href="{% url 'post_new' %}" class="top-menu">
+                {% include './icons/file-earmark-plus.svg' %}
+            </a>
+        </div>
+
+ 
+    </head>
+    <body>
+        <h1>Todo List</h1>
+
+        <table style="width:100% " border="1" >
+            <thead>
+                <tr>
+                    <th>UserId</th>
+                    <th>User</th>
+                    <th>Start Date</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>End Date</th>
+                    <th>Is Completed</th>
+                    <th>Edit</th>
+                    <th>Completed/Reset</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in posts %}
+                    <tr>
+                        <td>{{task.pk}}</td>
+                        <td>{{task.user}}</td>
+                        <td>{{task.start_date}}</td>
+                        <td>{{task.title}}</td>
+                        <td>{{task.description}}</td>
+                        <td>{{task.end_date}}</td>
+                        <td>{{task.is_completed}}</td>
+                        <td><div class="container">
+                            <a href="{% url 'post_edit' task.pk %} " class="top-menu">
+                                {% include './icons/pencil-fill.svg' %}
+                            </a>
+                        </div></td>
+                        <td><div class="container">
+                            <a href="{% url 'post_completed' task.pk %}" class="top-menu">
+                                {% include './icons/complete-svgrepo-com.svg' %}
+                            </a>
+                        </div></td>
+                        <td><div class="container">
+                            <a href="{% url 'post_delete' task.pk %}" class="top-menu">
+                                {% include './icons/icons8-delete.svg' %}
+                            </a>
+                        </div></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
